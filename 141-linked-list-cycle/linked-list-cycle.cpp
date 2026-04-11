@@ -8,18 +8,17 @@
  */
 class Solution {
 public:
-    bool hasCycle(ListNode *head) {
-        map<ListNode* , int> Hash;
-        ListNode* current = head;
-        int count = 0;
-        if(head == nullptr || head->next == nullptr)
+    bool hasCycle(ListNode* head) {
+        if (head == NULL || head->next == NULL)
             return false;
-        while(Hash[current] == 0){
-            Hash[current]++;
-            if(current->next == nullptr)
-                return false;
-            current = current->next;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast)
+                return true;
         }
-        return true;
+        return false;
     }
 };
